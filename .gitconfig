@@ -1,0 +1,38 @@
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+
+[user]
+	name = Mahmoud Abdelkhalek
+	email = mahmoud.t7@gmail.com
+
+[alias]
+	co = checkout
+	br = branch
+	c = commit
+	s = status
+	a = add
+	p = push
+#	ac = !git add -A && git commit -m
+
+[core]
+	pager = delta
+	editor = nvim
+	autocrlf = input
+
+[diff]
+	colorMoved = default
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true    # use n and N to move between diff sections
+	light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+	side-by-side = false
+	line-numbers = true
+	hyperlinks = true
+[merge]
+	conflictstyle = diff3
