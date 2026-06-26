@@ -1,7 +1,7 @@
 # dotfiles
 
-Personal configuration files for shells, Neovim, and prompt theming across
-Linux (Debian) and Windows.
+Personal configuration files for shells, Neovim, the kitty terminal, and
+prompt theming across Linux (Debian) and Windows.
 
 ## Contents
 
@@ -14,6 +14,8 @@ Linux (Debian) and Windows.
 | [`init-windows.lua`](init-windows.lua) | Windows variant of `init.lua`, using PowerShell as Neovim's shell. |
 | [`Microsoft.PowerShell_profile.ps1`](Microsoft.PowerShell_profile.ps1) | PowerShell profile for Windows Terminal: oh-my-posh prompt, PSReadLine settings, and an [lsd](https://github.com/lsd-rs/lsd)-based `ls`. |
 | [`paradox_modified.omp.json`](paradox_modified.omp.json) | Custom [oh-my-posh](https://ohmyposh.dev/) prompt theme (a modified `paradox`), shared by the Bash and PowerShell prompts. |
+| [`kitty/kitty.conf`](kitty/kitty.conf) | [kitty](https://sw.kovidgoyal.net/kitty/) terminal config: Nerd Font with ligatures, font-size zoom keys, remote control, and sensible defaults. |
+| [`kitty/current-theme.conf`](kitty/current-theme.conf) | kitty color theme ([Dracula](https://draculatheme.com/)), included by `kitty.conf`. |
 
 ## Notes
 
