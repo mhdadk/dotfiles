@@ -1,3 +1,9 @@
+-- Shared Neovim config. On Linux this file is sufficient on its own; windows.lua
+-- is not needed. On Windows, this file sources windows.lua at the bottom to
+-- apply platform-specific settings. The two Windows-specific hooks in this file
+-- are the toggleterm shell option (see comment there) and the require("windows")
+-- call at the bottom.
+
 -- Disable built-in netrw file explorer (replaced by nvim-tree)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -242,6 +248,10 @@ require("lazy").setup({
         opts = {
             direction = "float",
             start_in_insert = true,
+            -- lazy.nvim evaluates this opts table at lazy.setup() time, before
+            -- windows.lua runs, so vim.o.shell would still be cmd.exe by then.
+            -- Detect Windows here directly so the correct shell is captured early.
+            shell = vim.fn.has("win32") == 1 and "powershell" or vim.o.shell,
             float_opts = {
                 border = "curved",
                 width = function() return math.floor(vim.o.columns * 0.85) end,
@@ -407,3 +417,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
         end
     end,
 })
+
+-- Load platform-specific settings. windows.lua lives alongside this file and
+-- adds anything that only makes sense on Windows (e.g. PowerShell as the shell).
+if vim.fn.has("win32") == 1 then
+    require("windows")
+end
