@@ -418,8 +418,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end,
 })
 
--- Load platform-specific settings. windows.lua lives alongside this file and
--- adds anything that only makes sense on Windows (e.g. PowerShell as the shell).
+-- Load platform-specific settings. windows.lua lives alongside this file in the
+-- nvim config directory and adds anything that only makes sense on Windows
+-- (e.g. PowerShell as the shell). dofile() is used instead of require() because
+-- require() only searches {runtimepath}/lua/, not the config root directly.
 if vim.fn.has("win32") == 1 then
-    require("windows")
+    dofile(vim.fn.stdpath("config") .. "/windows.lua")
 end
