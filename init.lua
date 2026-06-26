@@ -219,6 +219,9 @@ require("lazy").setup({
         config = function()
             vim.g.lightline = {
                 colorscheme = "wombat",
+                -- Let bufferline manage the tabline and lightline manage the
+                -- statusline.
+                enable = { statusline = 1, tabline = 0 },
                 active = {
                     left = {
                         { "mode", "paste" },
@@ -389,6 +392,18 @@ vim.api.nvim_create_autocmd("BufReadPost", {
         if line > 0 and line <= last then
             vim.api.nvim_buf_set_mark(args.buf, '"', line, mark[2], {})
             pcall(vim.api.nvim_win_set_cursor, 0, { line, mark[2] })
+        end
+    end,
+})
+
+-- Auto-restore the cwd session, but only when nvim is launched with no file
+-- arguments (so `nvim somefile.m` still opens just that file).
+vim.api.nvim_create_autocmd("VimEnter", {
+    group = vim.api.nvim_create_augroup("persistence_restore", { clear = true }),
+    nested = true,
+    callback = function()
+        if vim.fn.argc(-1) == 0 then
+            require("persistence").load()
         end
     end,
 })
