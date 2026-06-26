@@ -251,7 +251,7 @@ require("lazy").setup({
             -- lazy.nvim evaluates this opts table at lazy.setup() time, before
             -- windows.lua runs, so vim.o.shell would still be cmd.exe by then.
             -- Detect Windows here directly so the correct shell is captured early.
-            shell = vim.fn.has("win32") == 1 and "powershell" or vim.o.shell,
+            shell = vim.fn.has("win32") == 1 and "pwsh" or vim.o.shell,
             float_opts = {
                 border = "curved",
                 width = function() return math.floor(vim.o.columns * 0.85) end,
