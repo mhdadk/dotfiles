@@ -1,8 +1,7 @@
--- Shared Neovim config. On Linux this file is sufficient on its own; windows.lua
--- is not needed. On Windows, this file sources windows.lua at the bottom to
--- apply platform-specific settings. The two Windows-specific hooks in this file
--- are the toggleterm shell option (see comment there) and the require("windows")
--- call at the bottom.
+-- Shared Neovim config for Linux and Windows. Drop this single file into the
+-- Neovim config directory on either platform and it works without any companion
+-- files. Windows-specific settings are applied via has("win32") guards: the
+-- toggleterm shell option (see comment there) and the block at the bottom.
 
 -- Disable built-in netrw file explorer (replaced by nvim-tree)
 vim.g.loaded_netrw = 1
@@ -418,10 +417,17 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end,
 })
 
--- Load platform-specific settings. windows.lua lives alongside this file in the
--- nvim config directory and adds anything that only makes sense on Windows
--- (e.g. PowerShell as the shell). dofile() is used instead of require() because
--- require() only searches {runtimepath}/lua/, not the config root directly.
+-- Windows-specific shell settings. Use pwsh (PowerShell 7) rather than
+-- powershell (Windows PowerShell 5): they load profiles from different locations
+-- (Documents\PowerShell\ vs Documents\WindowsPowerShell\), and oh-my-posh lives
+-- in the PowerShell 7 profile. shellxquote/shellquote are cleared because
+-- PowerShell doesn't need the quoting wrappers cmd.exe requires; shellpipe and
+-- shellredir route output through Out-File so Neovim receives UTF-8.
 if vim.fn.has("win32") == 1 then
-    dofile(vim.fn.stdpath("config") .. "/windows.lua")
+    vim.opt.shell = "pwsh"
+    vim.opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command"
+    vim.opt.shellxquote = ""
+    vim.opt.shellquote = ""
+    vim.opt.shellpipe = "| Out-File -Encoding UTF8 %s"
+    vim.opt.shellredir = "| Out-File -Encoding UTF8 %s"
 end
