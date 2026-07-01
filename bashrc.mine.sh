@@ -1,4 +1,3 @@
-export PATH=$PATH:/home/mabdelkh/.local/bin
 eval "$(oh-my-posh init bash --config ~/.cache/oh-my-posh/themes/paradox_modified.omp.json)"
 alias ls='eza --long --time-style="+%d-%b-%y %I:%M %p" --no-user --group-directories-first --sort=name'
 alias bat="batcat"
