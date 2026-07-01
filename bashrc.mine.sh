@@ -18,6 +18,8 @@ alias fd="fdfind"
 alias amp='devai launch -- amp'
 alias claude='devai launch -- claude'
 alias claude_mw='mw devai launch -- claude'
+alias codex='devai launch -- codex'
+alias codex_mw='mw devai launch -- codex'
 
 # Set default editor for amp and claude code
 export VISUAL="$(which nvim)"
