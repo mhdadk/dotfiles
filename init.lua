@@ -216,12 +216,10 @@ require("lazy").setup({
     -- Statusline
     {
         "itchyny/lightline.vim",
-        event = "VeryLazy",
+        lazy = false,
         init = function()
             -- Redundant with lightline's own mode indicator; avoid the duplicate.
             vim.opt.showmode = false
-        end,
-        config = function()
             vim.g.lightline = {
                 colorscheme = "wombat",
                 -- Let bufferline manage the tabline and lightline manage the
